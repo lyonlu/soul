@@ -1,39 +1,26 @@
 package com.soul.config;
 
-import com.soul.rpc.ProxyFactory;
+import org.springframework.beans.factory.FactoryBean;
 
 /**
  * @author: sumy
- * @date: 2017/12/29
+ * @date: 2017/12/31 15:26
  * @since: 1.0.0
  */
-public class ReferenceBean<T> {
+public class ReferenceBean<T> extends ReferenceConfig<T> implements FactoryBean {
 
-    /**
-     *
-     */
-    private Class<?> interfaceClass;
-    /**
-     * 接口代理类引用
-     */
-    private transient volatile T ref;
-
-    public synchronized T get() {
-        if (null == ref) {
-            init();
-        }
-        return ref;
+    @Override
+    public Object getObject() {
+        return get();
     }
 
-    private void init() {
-        ref = new ProxyFactory(interfaceClass).getProxyObject();
+    @Override
+    public Class<?> getObjectType() {
+        return getInterfaceClass();
     }
 
-    public Class<?> getInterfaceClass() {
-        return interfaceClass;
-    }
-
-    public void setInterfaceClass(Class<?> interfaceClass) {
-        this.interfaceClass = interfaceClass;
+    @Override
+    public boolean isSingleton() {
+        return true;
     }
 }
