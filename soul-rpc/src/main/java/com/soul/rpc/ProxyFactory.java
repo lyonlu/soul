@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
  * @date: 2017/12/29
  * @since: 1.0.0
  */
-public class ProxyFactory extends RpcInvocationHandler {
+public class ProxyFactory {
 
     /**
      *
@@ -18,12 +18,17 @@ public class ProxyFactory extends RpcInvocationHandler {
     private Class interfaceClass;
 
     /**
-     * @param interfaceClass
-     * @param handler
+     *
+     */
+    private InvocationHandler handler;
+
+    /**
+     * @param interfaceClass class namespace
      */
     public ProxyFactory(Class interfaceClass, InvocationHandler handler) {
-
         this.interfaceClass = interfaceClass;
+        this.handler = handler;
+
     }
 
     /**
@@ -31,7 +36,6 @@ public class ProxyFactory extends RpcInvocationHandler {
      * @return
      */
     public <T> T getProxyObject() {
-
-        return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{interfaceClass}, this);
+        return (T) Proxy.newProxyInstance(this.getClass().getClassLoader(), new Class[]{interfaceClass}, handler);
     }
 }

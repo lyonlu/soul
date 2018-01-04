@@ -1,8 +1,8 @@
 package com.soul.config;
 
+import com.soul.handler.RpcInvocationHandler;
+import com.soul.rpc.MenuService;
 import com.soul.rpc.ProxyFactory;
-
-import java.lang.reflect.InvocationHandler;
 
 /**
  * @author: sumy
@@ -15,15 +15,11 @@ public class ReferenceConfig<T> {
      *
      */
     private Class<?> interfaceClass;
+
     /**
      * 接口代理类引用
      */
     private transient volatile T ref;
-
-    /**
-     * 处理类
-     */
-    private InvocationHandler handler;
 
     public synchronized T get() {
         if (null == ref) {
@@ -36,14 +32,21 @@ public class ReferenceConfig<T> {
      *
      */
     private void init() {
-        ref = new ProxyFactory(interfaceClass, handler).getProxyObject();
+        ref = new ProxyFactory(interfaceClass, new RpcInvocationHandler(new MenuService() {
+            @Override
+            public void sayHello() {
+                System.out.println("------------------------");
+            }
+        })).getProxyObject();
     }
 
     public Class<?> getInterfaceClass() {
+
         return interfaceClass;
     }
 
     public void setInterfaceClass(Class<?> interfaceClass) {
+
         this.interfaceClass = interfaceClass;
     }
 }

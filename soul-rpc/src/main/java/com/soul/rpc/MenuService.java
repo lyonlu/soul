@@ -7,5 +7,8 @@ package com.soul.rpc;
  */
 public interface MenuService {
 
+    /**
+     * test method
+     */
     void sayHello();
 }

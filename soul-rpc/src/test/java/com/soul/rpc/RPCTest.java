@@ -1,7 +1,10 @@
 package com.soul.rpc;
 
+import com.soul.handler.RpcInvocationHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,11 +19,35 @@ import javax.annotation.Resource;
 @ContextConfiguration("classpath*:WEB-INF/spring/applicationContext.xml")
 public class RPCTest {
 
+    /**
+     * logger
+     */
+    private static final Logger logger = LoggerFactory.getLogger(RPCTest.class);
+
     @Resource
     private MenuService menuService;
 
     @Test
     public void sayHello() {
+
         menuService.sayHello();
+    }
+
+    @Test
+    public void traditionSayHello() {
+
+        ProxyFactory proxyFactory = new ProxyFactory(MenuService.class ,new RpcInvocationHandler(new MenuService() {
+            @Override
+            public void sayHello() {
+                logger.info("hello world");
+            }
+        }));
+        MenuService menuService = proxyFactory.getProxyObject();
+        menuService.sayHello();
+        try {
+            Thread.sleep(10000L);
+        } catch (InterruptedException e) {
+            logger.info("测试程序异常,{}", e.getMessage(), e);
+        }
     }
 }

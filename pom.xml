@@ -24,6 +24,7 @@
     <modules>
         <module>soul-parent</module>
         <module>soul-rpc</module>
+        <module>soul-design-pattern</module>
     </modules>
     <profiles>
         <profile>

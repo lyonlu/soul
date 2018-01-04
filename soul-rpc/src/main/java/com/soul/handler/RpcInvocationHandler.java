@@ -11,13 +11,27 @@ import java.lang.reflect.Method;
  * @date: 2017/12/31 14:36
  * @since: 1.0.0
  */
-public abstract class RpcInvocationHandler implements InvocationHandler {
-
+public class RpcInvocationHandler implements InvocationHandler {
 
     /**
      * logger
      */
     private Logger logger = LoggerFactory.getLogger(RpcInvocationHandler.class);
+    /**
+     * 代理类委托对象
+     */
+    private Object delegate;
+
+    /**
+     *
+     * @param delegate
+     */
+    public RpcInvocationHandler(Object delegate) {
+        this.delegate = delegate;
+    }
+
+    public RpcInvocationHandler() {
+    }
 
     /**
      * Processes a method invocation on a proxy instance and returns
@@ -65,13 +79,15 @@ public abstract class RpcInvocationHandler implements InvocationHandler {
      * @see UndeclaredThrowableException
      */
     @Override
-    public Object invoke(Object proxy, Method method, Object[] args) {
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
         logger.info("method:{}", method.toString());
         logger.info("encode:");
+        Object result = method.invoke(delegate, args);
         logger.info("send request");
         logger.info("decode request result");
-        return null;
+        return result;
     }
+
 }
 
