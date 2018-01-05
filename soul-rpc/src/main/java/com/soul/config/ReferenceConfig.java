@@ -32,12 +32,7 @@ public class ReferenceConfig<T> {
      *
      */
     private void init() {
-        ref = new ProxyFactory(interfaceClass, new RpcInvocationHandler(new MenuService() {
-            @Override
-            public void sayHello() {
-                System.out.println("------------------------");
-            }
-        })).getProxyObject();
+        ref = new ProxyFactory(interfaceClass).getProxyObject();
     }
 
     public Class<?> getInterfaceClass() {

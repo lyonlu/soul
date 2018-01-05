@@ -1,6 +1,5 @@
 package com.soul.rpc;
 
-import com.soul.handler.RpcInvocationHandler;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,14 +35,9 @@ public class RPCTest {
     @Test
     public void traditionSayHello() {
 
-        ProxyFactory proxyFactory = new ProxyFactory(MenuService.class ,new RpcInvocationHandler(new MenuService() {
-            @Override
-            public void sayHello() {
-                logger.info("hello world");
-            }
-        }));
-        MenuService menuService = proxyFactory.getProxyObject();
+        MenuService menuService = new ProxyFactory(MenuService.class).getProxyObject();
         menuService.sayHello();
+
         try {
             Thread.sleep(10000L);
         } catch (InterruptedException e) {
