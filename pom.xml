@@ -25,6 +25,7 @@
         <module>soul-parent</module>
         <module>soul-rpc</module>
         <module>soul-design-pattern</module>
+        <module>soul-spring-boot</module>
     </modules>
     <profiles>
         <profile>
