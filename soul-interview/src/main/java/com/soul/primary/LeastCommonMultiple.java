@@ -1,6 +1,6 @@
 /*
  * *
- *  * Copyright (c) 2017-${year} soul
+ *  * Copyright (c) 2017-${YEAR} soul
  *  * All rights reserved.
  *  *
  *  * Permission is hereby granted, free  of charge, to any person obtaining
@@ -29,8 +29,8 @@ public class LeastCommonMultiple {
     /**
      * 获取最小公倍数
      *
-     * @param a
-     * @param b
+     * @param a number
+     * @param b number
      * @return
      */
     public static int computer(int a, int b) {
