@@ -1,6 +1,6 @@
 /*
  * *
- *  *Copyright (c) 2017-${YEAR} Soul
+ *  * Copyright (c) 2017-${YEAR} soul
  *  * All rights reserved.
  *  *
  *  * Permission is hereby granted, free  of charge, to any person obtaining
