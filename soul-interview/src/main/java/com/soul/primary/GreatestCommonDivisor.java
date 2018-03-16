@@ -1,6 +1,6 @@
 /*
  * *
- *  * Copyright (c) 2017-${year} soul
+ *  * Copyright (c) 2017-${YEAR} soul
  *  * All rights reserved.
  *  *
  *  * Permission is hereby granted, free  of charge, to any person obtaining
@@ -30,9 +30,9 @@ public class GreatestCommonDivisor {
     /**
      * 求取最大公约数
      *
-     * @param a
-     * @param b
-     * @return
+     * @param a number
+     * @param b number
+     * @return number
      */
     public static int computer(int a, int b) {
 
