@@ -47,6 +47,7 @@
         <module>soul-interview</module>
         <module>soul-job</module>
         <module>elastic-job-spring-boot-starter</module>
+        <module>elastic-job-spring-cloud-starter</module>
         <module>elastic-job-spring-boot-demo</module>
     </modules>
     <profiles>
@@ -160,9 +161,9 @@
     </dependencyManagement>
 
 
-    <repositories>
-        <repository>
-            <!-- Maven 自带的中央仓库使用的Id为central 如果其他的仓库声明也是用该Id 就会覆盖中央仓库的配置 -->
+    <pluginRepositories>
+
+        <pluginRepository>
             <id>central</id>
             <name>central</name>
             <url>http://central.maven.org/maven2/</url>
@@ -173,22 +174,7 @@
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
-        </repository>
-        <repository>
-            <id>maven-net-cn</id>
-            <name>Maven China Mirror</name>
-            <url>http://maven.net.cn/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-
-    </repositories>
-
-    <pluginRepositories>
+        </pluginRepository>
         <pluginRepository>
             <id>maven-net-cn</id>
             <name>Maven China Mirror</name>
@@ -200,11 +186,11 @@
                 <enabled>false</enabled>
             </snapshots>
         </pluginRepository>
+
         <pluginRepository>
-            <id>central</id>
-            <name>central</name>
-            <url>http://central.maven.org/maven2/</url>
-            <layout>default</layout>
+            <id>ali-maven</id>
+            <name>Ali Maven</name>
+            <url>http://maven.aliyun.com/nexus/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>

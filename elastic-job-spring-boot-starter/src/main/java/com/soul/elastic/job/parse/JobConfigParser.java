@@ -70,6 +70,9 @@ public class JobConfigParser implements ApplicationContextAware {
     @Autowired(required = false)
     private JobService jobService;
 
+    @Resource
+    private PropertiesUtil propertiesUtil;
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 
@@ -88,35 +91,35 @@ public class JobConfigParser implements ApplicationContextAware {
             String jobName = jobConfig.name();
 
             // cron 表达式
-            String cron = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.CRON, jobConfig.cron());
+            String cron = propertiesUtil.getEnvStringValue(jobName, JobAttribute.CRON, jobConfig.cron());
             // 作业分片参数
-            String shardingItemParameters = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.SHARDING_ITEM_PARAMETERS, jobConfig.shardingItemParameters());
+            String shardingItemParameters = propertiesUtil.getEnvStringValue(jobName, JobAttribute.SHARDING_ITEM_PARAMETERS, jobConfig.shardingItemParameters());
             // 作业描述信息
-            String description = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.DESCRIPTION, jobConfig.description());
+            String description = propertiesUtil.getEnvStringValue(jobName, JobAttribute.DESCRIPTION, jobConfig.description());
             // 作业参数
-            String jobParameter = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.JOB_PARAMETER, jobConfig.jobParameter());
+            String jobParameter = propertiesUtil.getEnvStringValue(jobName, JobAttribute.JOB_PARAMETER, jobConfig.jobParameter());
             // 作业异常处理器
-            String jobExceptionHandler = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.JOB_EXCEPTION_HANDLER, jobConfig.jobExceptionHandler());
+            String jobExceptionHandler = propertiesUtil.getEnvStringValue(jobName, JobAttribute.JOB_EXCEPTION_HANDLER, jobConfig.jobExceptionHandler());
             // 作业执行器
-            String executorServiceHandler = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.EXECUTOR_SERVICE_HANDLER, jobConfig.executorServiceHandler());
+            String executorServiceHandler = propertiesUtil.getEnvStringValue(jobName, JobAttribute.EXECUTOR_SERVICE_HANDLER, jobConfig.executorServiceHandler());
             // 作业分片策略
-            String jobShardingStrategyClass = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.JOB_SHARDING_STRATEGY_CLASS, jobConfig.jobShardingStrategyClass());
+            String jobShardingStrategyClass = propertiesUtil.getEnvStringValue(jobName, JobAttribute.JOB_SHARDING_STRATEGY_CLASS, jobConfig.jobShardingStrategyClass());
             // 作业跟踪源
-            String eventTraceRdbDataSource = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.EVENT_TRACE_RDB_DATA_SOURCE, jobConfig.eventTraceRdbDataSource());
+            String eventTraceRdbDataSource = propertiesUtil.getEnvStringValue(jobName, JobAttribute.EVENT_TRACE_RDB_DATA_SOURCE, jobConfig.eventTraceRdbDataSource());
             // script 作业脚本
-            String scriptCommandLine = PropertiesUtil.getEnvStringValue(jobName, JobAttribute.SCRIPT_COMMAND_LINE, jobConfig.scriptCommandLine());
+            String scriptCommandLine = propertiesUtil.getEnvStringValue(jobName, JobAttribute.SCRIPT_COMMAND_LINE, jobConfig.scriptCommandLine());
 
-            boolean failover = PropertiesUtil.getEnvBooleanValue(jobName, JobAttribute.FAILOVER, jobConfig.failover());
-            boolean misfire = PropertiesUtil.getEnvBooleanValue(jobName, JobAttribute.MISFIRE, jobConfig.misfire());
-            boolean overwrite = PropertiesUtil.getEnvBooleanValue(jobName, JobAttribute.OVERWRITE, jobConfig.overwrite());
-            boolean disabled = PropertiesUtil.getEnvBooleanValue(jobName, JobAttribute.DISABLED, jobConfig.disabled());
-            boolean monitorExecution = PropertiesUtil.getEnvBooleanValue(jobName, JobAttribute.MONITOR_EXECUTION, jobConfig.monitorExecution());
-            boolean streamingProcess = PropertiesUtil.getEnvBooleanValue(jobName, JobAttribute.STREAMING_PROCESS, jobConfig.streamingProcess());
+            boolean failover = propertiesUtil.getEnvBooleanValue(jobName, JobAttribute.FAILOVER, jobConfig.failover());
+            boolean misfire = propertiesUtil.getEnvBooleanValue(jobName, JobAttribute.MISFIRE, jobConfig.misfire());
+            boolean overwrite = propertiesUtil.getEnvBooleanValue(jobName, JobAttribute.OVERWRITE, jobConfig.overwrite());
+            boolean disabled = propertiesUtil.getEnvBooleanValue(jobName, JobAttribute.DISABLED, jobConfig.disabled());
+            boolean monitorExecution = propertiesUtil.getEnvBooleanValue(jobName, JobAttribute.MONITOR_EXECUTION, jobConfig.monitorExecution());
+            boolean streamingProcess = propertiesUtil.getEnvBooleanValue(jobName, JobAttribute.STREAMING_PROCESS, jobConfig.streamingProcess());
 
-            int shardingTotalCount = PropertiesUtil.getEnvIntValue(jobName, JobAttribute.SHARDING_TOTAL_COUNT, jobConfig.shardingTotalCount());
-            int monitorPort = PropertiesUtil.getEnvIntValue(jobName, JobAttribute.MONITOR_PORT, jobConfig.monitorPort());
-            int maxTimeDiffSeconds = PropertiesUtil.getEnvIntValue(jobName, JobAttribute.MAX_TIME_DIFF_SECONDS, jobConfig.maxTimeDiffSeconds());
-            int reconcileIntervalMinutes = PropertiesUtil.getEnvIntValue(jobName, JobAttribute.RECONCILE_INTERVAL_MINUTES, jobConfig.reconcileIntervalMinutes());
+            int shardingTotalCount = propertiesUtil.getEnvIntValue(jobName, JobAttribute.SHARDING_TOTAL_COUNT, jobConfig.shardingTotalCount());
+            int monitorPort = propertiesUtil.getEnvIntValue(jobName, JobAttribute.MONITOR_PORT, jobConfig.monitorPort());
+            int maxTimeDiffSeconds = propertiesUtil.getEnvIntValue(jobName, JobAttribute.MAX_TIME_DIFF_SECONDS, jobConfig.maxTimeDiffSeconds());
+            int reconcileIntervalMinutes = propertiesUtil.getEnvIntValue(jobName, JobAttribute.RECONCILE_INTERVAL_MINUTES, jobConfig.reconcileIntervalMinutes());
 
             // 核心配置
             JobCoreConfiguration coreConfig = JobCoreConfiguration.newBuilder(jobName, cron, shardingTotalCount)
@@ -129,7 +132,7 @@ public class JobConfigParser implements ApplicationContextAware {
                     .jobProperties(JobProperties.JobPropertiesEnum.EXECUTOR_SERVICE_HANDLER.getKey(), executorServiceHandler)
                     .build();
 
-            JobTypeConfiguration jobTypeConfig = getJobTypeConfiguration(jobTypeName, coreConfig, jobClass, streamingProcess, scriptCommandLine);
+            JobTypeConfiguration jobTypeConfig = JobTypeConfigBuilder.getJobTypeConfiguration(jobTypeName, coreConfig, jobClass, streamingProcess, scriptCommandLine);
 
             if (null == jobTypeConfig) {
                 log.error("job config error: jobName:{},jobType:{}", new Object[]{jobName, jobTypeName});
@@ -187,32 +190,6 @@ public class JobConfigParser implements ApplicationContextAware {
         }
     }
 
-
-    /**
-     * 根据作业类型 获取作业配置信息
-     *
-     * @param jobTypeName       作业类型
-     * @param coreConfig        核心配置
-     * @param jobClass          job 执行器
-     * @param streamingProcess
-     * @param scriptCommandLine
-     * @return
-     */
-    private JobTypeConfiguration getJobTypeConfiguration(String jobTypeName, JobCoreConfiguration coreConfig, String jobClass, boolean streamingProcess, String scriptCommandLine) {
-
-        JobTypeConfiguration jobTypeConfig = null;
-        if (jobTypeName.equals(JobTypeEnum.simple.getName())) {
-            jobTypeConfig = new SimpleJobConfiguration(coreConfig, jobClass);
-        }
-        if (jobTypeName.equals(JobTypeEnum.dataFlow.getName())) {
-            jobTypeConfig = new DataflowJobConfiguration(coreConfig, jobClass, streamingProcess);
-        }
-        if (jobTypeName.equals(JobTypeEnum.script.getName())) {
-            jobTypeConfig = new ScriptJobConfiguration(coreConfig, scriptCommandLine);
-        }
-        return jobTypeConfig;
-    }
-
     /**
      * @param config
      * @return
@@ -221,18 +198,19 @@ public class JobConfigParser implements ApplicationContextAware {
 
         List<BeanDefinition> beanDefinitionList = new ManagedList<BeanDefinition>(2);
 
-        String listeners = PropertiesUtil.getEnvStringValue(config.name(), JobAttribute.LISTENER, config.listener());
+        String listeners = propertiesUtil.getEnvStringValue(config.name(), JobAttribute.LISTENER, config.listener());
         if (StringUtils.hasText(listeners)) {
             BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(listeners);
             factory.setScope(BeanDefinition.SCOPE_PROTOTYPE);
             beanDefinitionList.add(factory.getBeanDefinition());
         }
 
-        String distributedListeners = PropertiesUtil.getEnvStringValue(config.name(), JobAttribute.DISTRIBUTED_LISTENER, config.distributedListener());
-        long startedTimeoutMilliseconds = PropertiesUtil.getEnvLongValue(config.name(), JobAttribute.DISTRIBUTED_LISTENER_STARTED_TIMEOUT_MILLISECONDS, config.startedTimeoutMilliseconds());
-        long completedTimeoutMilliseconds = PropertiesUtil.getEnvLongValue(config.name(), JobAttribute.DISTRIBUTED_LISTENER_COMPLETED_TIMEOUT_MILLISECONDS, config.completedTimeoutMilliseconds());
+        String distributedListeners = propertiesUtil.getEnvStringValue(config.name(), JobAttribute.DISTRIBUTED_LISTENER, config.distributedListener());
+        long startedTimeoutMilliseconds = propertiesUtil.getEnvLongValue(config.name(), JobAttribute.DISTRIBUTED_LISTENER_STARTED_TIMEOUT_MILLISECONDS, config.startedTimeoutMilliseconds());
+        long completedTimeoutMilliseconds = propertiesUtil.getEnvLongValue(config.name(), JobAttribute.DISTRIBUTED_LISTENER_COMPLETED_TIMEOUT_MILLISECONDS, config.completedTimeoutMilliseconds());
 
         if (StringUtils.hasText(distributedListeners)) {
+            // 分布式任务监听
             BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(distributedListeners);
             factory.setScope(BeanDefinition.SCOPE_PROTOTYPE);
             factory.addConstructorArgValue(startedTimeoutMilliseconds);

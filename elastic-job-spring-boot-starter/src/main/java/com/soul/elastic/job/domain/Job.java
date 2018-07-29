@@ -35,7 +35,8 @@ public abstract class Job {
     private String jobName;
 
     /**
-     * 作业类型（SIMPLE，DATAFLOW，SCRIPT）
+     * 作业类型
+     * JobTypeEnum
      */
     private String jobType;
 

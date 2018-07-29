@@ -18,25 +18,32 @@
 package com.soul.elastic.job.utils;
 
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+
+import javax.annotation.Resource;
 
 /**
  * @author: sumy
  * @date: 2018/7/28 17:35
  * @since: 1.0.0
  */
+@Component
 public class PropertiesUtil {
 
+
+    @Resource
+    private ApplicationContextUtils applicationContextUtils;
     /**
      * job 配置前缀
      */
     private static final String prefix = "elastic.job.";
 
-    public static Environment environment;
+    /**
+     *
+     */
+    private Environment environment = ApplicationContextUtils.getContext().getEnvironment();
 
-    static {
-        environment = ApplicationContextUtils.getContext().getEnvironment();
-    }
 
     /**
      * 获取配置中的任务属性值，environment没有就用注解中的值
@@ -46,7 +53,7 @@ public class PropertiesUtil {
      * @param defaultValue 默认值
      * @return
      */
-    public static String getEnvStringValue(String jobName, String fieldName, String defaultValue) {
+    public String getEnvStringValue(String jobName, String fieldName, String defaultValue) {
 
         String value = getEnvValue(getKey(jobName, fieldName));
         if (StringUtils.hasText(value)) {
@@ -63,7 +70,7 @@ public class PropertiesUtil {
      * @param defaultValue 默认值
      * @return
      */
-    public static int getEnvIntValue(String jobName, String fieldName, int defaultValue) {
+    public int getEnvIntValue(String jobName, String fieldName, int defaultValue) {
         String value = getEnvValue(getKey(jobName, fieldName));
         if (StringUtils.hasText(value)) {
             return Integer.valueOf(value);
@@ -79,7 +86,7 @@ public class PropertiesUtil {
      * @param defaultValue 默认值
      * @return
      */
-    public static long getEnvLongValue(String jobName, String fieldName, long defaultValue) {
+    public long getEnvLongValue(String jobName, String fieldName, long defaultValue) {
         String value = getEnvValue(getKey(jobName, fieldName));
         if (StringUtils.hasText(value)) {
             return Long.valueOf(value);
@@ -95,7 +102,7 @@ public class PropertiesUtil {
      * @param defaultValue 默认值
      * @return
      */
-    public static boolean getEnvBooleanValue(String jobName, String fieldName, boolean defaultValue) {
+    public boolean getEnvBooleanValue(String jobName, String fieldName, boolean defaultValue) {
         String value = getEnvValue(getKey(jobName, fieldName));
         if (StringUtils.hasText(value)) {
             return Boolean.valueOf(value);
@@ -109,7 +116,7 @@ public class PropertiesUtil {
      * @param args 组成key的元素
      * @return
      */
-    private static String getKey(Object... args) {
+    private String getKey(Object... args) {
         String key = prefix;
         for (int i = 0; i < args.length; i++) {
             key += args[i] + ".";
@@ -123,7 +130,7 @@ public class PropertiesUtil {
      * @param key 配置key
      * @return
      */
-    private static String getEnvValue(String key) {
+    private String getEnvValue(String key) {
         return environment.getProperty(key);
     }
 
