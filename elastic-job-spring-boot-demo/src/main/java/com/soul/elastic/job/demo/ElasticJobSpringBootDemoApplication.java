@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,19 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.elastic.job.demo;
 
-/**
- * @author: sumy
- * @date: 2018/3/16 23:55
- * @since: 1.0.0
- */
-public class GreatestCommonDivisor {
+import com.soul.elastic.job.annotation.EnableElasticJob;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication(scanBasePackages = ElasticJobSpringBootDemoApplication.basePackages)
+@EnableElasticJob
+public class ElasticJobSpringBootDemoApplication {
 
-    /**
-     * 求取最大公约数
-     *
-     * @param a number
-     * @param b number
-     * @return number
-     */
-    public static int computer(int a, int b) {
+    final static String basePackages = "com.soul.elastic.job";
 
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
-
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
+    public static void main(String[] args) {
+        SpringApplication.run(ElasticJobSpringBootDemoApplication.class, args);
     }
 }

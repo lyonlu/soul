@@ -1,3 +1,20 @@
+/*
+ *
+ *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
+ *
+ *  Permission is hereby granted, free  of charge, to any person obtaining
+ *  a  copy  of this  software  and  associated  documentation files  (the
+ *  "Software"), to  deal in  the Software without  restriction, including
+ *   without limitation  the rights to  use, copy, modify,  merge, publish,
+ *   distribute,  sublicense, and/or sell  copies of  the Software,  and to
+ *   permit persons to whom the Software  is furnished to do so, subject to
+ *   the following conditions:
+ *
+ *   The  above  copyright  notice  and  this permission  notice  shall  be
+ *   included in all copies or substantial portions of the Software.
+ *
+ */
+
 package com.soul.rpc;
 
 import org.junit.Test;
@@ -16,12 +33,12 @@ import javax.annotation.Resource;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath*:WEB-INF/spring/applicationContext.xml")
-public class RPCTest {
+public class RPCTestA {
 
     /**
      * logger
      */
-    private static final Logger logger = LoggerFactory.getLogger(RPCTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(RPCTestA.class);
 
     @Resource
     private MenuService menuService;
@@ -44,4 +61,5 @@ public class RPCTest {
             logger.info("测试程序异常,{}", e.getMessage(), e);
         }
     }
+
 }

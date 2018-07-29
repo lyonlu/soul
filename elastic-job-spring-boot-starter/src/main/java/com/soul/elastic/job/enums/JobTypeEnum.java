@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,40 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.elastic.job.enums;
+
+import lombok.Getter;
 
 /**
  * @author: sumy
- * @date: 2018/3/16 23:55
+ * @date: 2018/7/28 18:35
  * @since: 1.0.0
  */
-public class GreatestCommonDivisor {
-
+@Getter
+public enum JobTypeEnum {
 
     /**
-     * 求取最大公约数
      *
-     * @param a number
-     * @param b number
-     * @return number
      */
-    public static int computer(int a, int b) {
+    simple("SimpleJob"),
+    /**
+     *
+     */
+    dataFlow("DataflowJob"),
+    /**
+     *
+     */
+    script("ScriptJob");
 
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
+    /**
+     * job 类型名称
+     */
+    private String name;
 
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
+    /**
+     * @param name job类型
+     */
+    JobTypeEnum(String name) {
+        this.name = name;
     }
 }

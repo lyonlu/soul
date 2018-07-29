@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,13 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.elastic.job.constant;
 
 /**
  * @author: sumy
- * @date: 2018/3/16 23:55
+ * @date: 2018/7/28 19:19
  * @since: 1.0.0
  */
-public class GreatestCommonDivisor {
+public interface BeanName {
 
-
-    /**
-     * 求取最大公约数
-     *
-     * @param a number
-     * @param b number
-     * @return number
-     */
-    public static int computer(int a, int b) {
-
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
-
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
-    }
 }

@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,15 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.job;
 
-/**
- * @author: sumy
- * @date: 2018/3/16 23:55
- * @since: 1.0.0
- */
-public class GreatestCommonDivisor {
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+@SpringBootApplication
+public class SoulJobApplication {
 
-    /**
-     * 求取最大公约数
-     *
-     * @param a number
-     * @param b number
-     * @return number
-     */
-    public static int computer(int a, int b) {
-
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
-
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
+    public static void main(String[] args) {
+        SpringApplication.run(SoulJobApplication.class, args);
     }
 }

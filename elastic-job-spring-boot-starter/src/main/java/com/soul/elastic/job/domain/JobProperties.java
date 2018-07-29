@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,34 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.elastic.job.domain;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 /**
  * @author: sumy
- * @date: 2018/3/16 23:55
+ * @date: 2018/7/28 21:20
  * @since: 1.0.0
  */
-public class GreatestCommonDivisor {
+@Data
+public class JobProperties {
 
 
     /**
-     * 求取最大公约数
+     * 自定义异常处理类
      *
-     * @param a number
-     * @param b number
-     * @return number
+     * @return
      */
-    public static int computer(int a, int b) {
 
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
+    @JsonProperty("job_exception_handler")
+    private String jobExceptionHandler = "com.dangdang.ddframe.job.executor.handler.impl.DefaultJobExceptionHandler";
 
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
-    }
+    /**
+     * 自定义业务处理线程池
+     *
+     * @return
+     */
+    @JsonProperty("executor_service_handler")
+    private String executorServiceHandler = "com.dangdang.ddframe.job.executor.handler.impl.DefaultExecutorServiceHandler";
 }

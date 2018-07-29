@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,31 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.elastic.job.utils;
+
+import org.springframework.beans.BeansException;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
+import org.springframework.stereotype.Component;
 
 /**
  * @author: sumy
- * @date: 2018/3/16 23:55
+ * @date: 2018/7/28 17:43
  * @since: 1.0.0
  */
-public class GreatestCommonDivisor {
+@Component
+public class ApplicationContextUtils implements ApplicationContextAware {
 
 
-    /**
-     * 求取最大公约数
-     *
-     * @param a number
-     * @param b number
-     * @return number
-     */
-    public static int computer(int a, int b) {
+    private static ApplicationContext context;
 
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
-
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
+    public static ApplicationContext getContext() {
+        return context;
     }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        context = applicationContext;
+    }
+
 }

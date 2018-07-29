@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   ~
-  ~  Copyright (c) 2017-${YEAR} Soul, sumy  All rights reserved.
+  ~  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
   ~
   ~  Permission is hereby granted, free  of charge, to any person obtaining
   ~  a  copy  of this  software  and  associated  documentation files  (the
@@ -40,10 +40,14 @@
     </organization>
     <modules>
         <module>soul-parent</module>
+        <module>soul-spring-boot-parent</module>
         <module>soul-rpc</module>
         <module>soul-design-pattern</module>
         <module>soul-spring-boot</module>
         <module>soul-interview</module>
+        <module>soul-job</module>
+        <module>elastic-job-spring-boot-starter</module>
+        <module>elastic-job-spring-boot-demo</module>
     </modules>
     <profiles>
         <profile>
@@ -67,6 +71,8 @@
         <!-- Common libs -->
         <spring_version>4.3.13.RELEASE</spring_version>
         <common_lang3_version>3.7</common_lang3_version>
+        <lombok.version>1.18.0</lombok.version>
+        <fastjson.version>1.2.46</fastjson.version>
 
         <!-- Test libs-->
         <junit_version>4.12</junit_version>
@@ -94,6 +100,17 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${common_lang3_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <optional>true</optional>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
 
             <!-- Test libs-->
@@ -130,8 +147,73 @@
                 <artifactId>logback-classic</artifactId>
                 <version>${logback_version}</version>
             </dependency>
+
+            <!--spring boot-->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.0.3.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+
+    <repositories>
+        <repository>
+            <!-- Maven 自带的中央仓库使用的Id为central 如果其他的仓库声明也是用该Id 就会覆盖中央仓库的配置 -->
+            <id>central</id>
+            <name>central</name>
+            <url>http://central.maven.org/maven2/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven-net-cn</id>
+            <name>Maven China Mirror</name>
+            <url>http://maven.net.cn/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>maven-net-cn</id>
+            <name>Maven China Mirror</name>
+            <url>http://maven.net.cn/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>central</id>
+            <name>central</name>
+            <url>http://central.maven.org/maven2/</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
     <developers>
         <developer>
             <name>sumy</name>

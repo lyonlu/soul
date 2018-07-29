@@ -1,4 +1,3 @@
-
 /*
  *
  *  Copyright (c) 2017-2018 Soul, sumy  All rights reserved.
@@ -16,32 +15,35 @@
  *
  */
 
-package com.soul.primary;
+package com.soul.elastic.job.domain;
+
+import com.soul.elastic.job.enums.JobTypeEnum;
+import lombok.Data;
 
 /**
  * @author: sumy
- * @date: 2018/3/16 23:55
+ * @date: 2018/7/28 21:13
  * @since: 1.0.0
  */
-public class GreatestCommonDivisor {
-
+@Data
+public class DataFlowJob extends Job {
 
     /**
-     * 求取最大公约数
+     * 是否流式处理数据
      *
-     * @param a number
-     * @param b number
-     * @return number
+     * <p>如果流式处理数据, 则fetchData不返回空结果将持续执行作业<p>
+     *
+     * <p>如果非流式处理数据, 则处理数据完成后作业结束<p>
+     *
+     * @return
      */
-    public static int computer(int a, int b) {
+    private boolean streamingProcess = false;
 
-        int max, min;
-        max = (a > b) ? a : b;
-        min = (a < b) ? a : b;
-
-        if (max % min != 0) {
-            return computer(min, max % min);
-        } else
-            return min;
+    /**
+     *
+     */
+    public DataFlowJob() {
+        super();
+        this.setJobType(JobTypeEnum.dataFlow.getName());
     }
 }
