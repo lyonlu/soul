@@ -54,7 +54,7 @@ public class JobController {
      * @return
      */
     @PostMapping("/job")
-    public Object addJob(@RequestBody SimpleJob job) {
+    public Object addJob(@RequestBody Job job) {
 
         Map<String, Object> result = new HashMap<String, Object>();
 

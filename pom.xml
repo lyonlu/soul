@@ -44,6 +44,9 @@
         <module>soul-rpc</module>
         <module>soul-design-pattern</module>
         <module>soul-spring-boot</module>
+        <module>soul-spring-boot-dubbo-provider</module>
+        <module>soul-spring-boot-dubbo-api</module>
+        <module>soul-spring-boot-dubbo-consumer</module>
         <module>soul-interview</module>
         <module>soul-job</module>
         <module>elastic-job-spring-boot-starter</module>
@@ -72,7 +75,7 @@
         <!-- Common libs -->
         <spring_version>4.3.13.RELEASE</spring_version>
         <common_lang3_version>3.7</common_lang3_version>
-        <lombok.version>1.18.0</lombok.version>
+        <lombok.version>1.18.2</lombok.version>
         <fastjson.version>1.2.46</fastjson.version>
 
         <!-- Test libs-->

@@ -21,6 +21,7 @@ import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperConfiguration;
 import com.dangdang.ddframe.job.reg.zookeeper.ZookeeperRegistryCenter;
 import com.soul.elastic.job.parse.JobConfigParser;
 import com.soul.elastic.job.utils.ApplicationContextUtils;
+import com.soul.elastic.job.utils.PropertiesUtil;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -54,11 +55,6 @@ public class JobParserAutoConfiguration {
         zkConfig.setMaxSleepTimeMilliseconds(zookeeperProperties.getMaxSleepTimeMilliseconds());
         zkConfig.setSessionTimeoutMilliseconds(zookeeperProperties.getSessionTimeoutMilliseconds());
         return new ZookeeperRegistryCenter(zkConfig);
-    }
-
-    @Bean
-    public ApplicationContextUtils applicationContextUtils() {
-        return new ApplicationContextUtils();
     }
 
     @Bean

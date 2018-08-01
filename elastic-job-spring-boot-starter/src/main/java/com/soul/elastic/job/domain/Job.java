@@ -25,7 +25,7 @@ import lombok.Data;
  * @since: 1.0.0
  */
 @Data
-public abstract class Job {
+public class Job {
 
     /**
      * 作业名称

@@ -31,9 +31,6 @@ import javax.annotation.Resource;
 @Component
 public class PropertiesUtil {
 
-
-    @Resource
-    private ApplicationContextUtils applicationContextUtils;
     /**
      * job 配置前缀
      */

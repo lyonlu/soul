@@ -34,7 +34,8 @@ import java.util.Date;
 @Slf4j
 @ElasticJobConfig(name = "soulSimpleJob", cron = "0/10 * * * * ?", shardingItemParameters = "0=0,1=1,2=2", shardingTotalCount = 3,
         failover = true, overwrite = true, description = "简单任务")
-public class soulSimpleJob implements SimpleJob {
+public class SoulSimpleJob implements SimpleJob {
+
     /**
      * 执行作业.
      *
@@ -58,6 +59,5 @@ public class soulSimpleJob implements SimpleJob {
                 }
             }
         }
-
     }
 }

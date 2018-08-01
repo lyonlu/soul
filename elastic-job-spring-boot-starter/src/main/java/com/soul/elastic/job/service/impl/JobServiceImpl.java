@@ -71,9 +71,6 @@ public class JobServiceImpl implements JobService {
     @Autowired
     private ZookeeperRegistryCenter zookeeperRegistryCenter;
 
-    @Resource
-    private ApplicationContextUtils applicationContextUtils;
-
     /**
      * 任务变化时通知zk其他节点
      */
@@ -135,7 +132,7 @@ public class JobServiceImpl implements JobService {
                 .jobProperties(JobProperties.JobPropertiesEnum.EXECUTOR_SERVICE_HANDLER.getKey(), job.getJobProperties().getExecutorServiceHandler())
                 .build();
 
-        JobTypeConfiguration jobTypeConfig = JobTypeConfigBuilder.getJobTypeConfiguration(job.getJobType(), coreConfig, job.getJobClass(), ((DataFlowJob) job).isStreamingProcess(), ((ScriptJob) job).getScriptCommandLine());
+        JobTypeConfiguration jobTypeConfig = JobTypeConfigBuilder.getJobTypeConfiguration(job.getJobType(), coreConfig, job.getJobClass(), job);
 
         LiteJobConfiguration liteJobConfig = LiteJobConfiguration.newBuilder(jobTypeConfig)
                 .overwrite(job.isOverwrite())

@@ -26,4 +26,5 @@ import lombok.Data;
  */
 @Data
 public class SimpleJob extends Job {
+
 }

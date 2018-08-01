@@ -21,11 +21,12 @@ import com.soul.elastic.job.annotation.EnableElasticJob;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication(scanBasePackages = ElasticJobSpringBootDemoApplication.basePackages)
+/**
+ * @author luliang
+ */
+@SpringBootApplication(scanBasePackages = "com.soul.elastic.job")
 @EnableElasticJob
 public class ElasticJobSpringBootDemoApplication {
-
-    final static String basePackages = "com.soul.elastic.job";
 
     public static void main(String[] args) {
         SpringApplication.run(ElasticJobSpringBootDemoApplication.class, args);

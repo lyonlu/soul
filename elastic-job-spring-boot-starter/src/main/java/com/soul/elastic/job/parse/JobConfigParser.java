@@ -19,9 +19,6 @@ package com.soul.elastic.job.parse;
 
 import com.dangdang.ddframe.job.config.JobCoreConfiguration;
 import com.dangdang.ddframe.job.config.JobTypeConfiguration;
-import com.dangdang.ddframe.job.config.dataflow.DataflowJobConfiguration;
-import com.dangdang.ddframe.job.config.script.ScriptJobConfiguration;
-import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;
 import com.dangdang.ddframe.job.event.rdb.JobEventRdbConfiguration;
 import com.dangdang.ddframe.job.executor.handler.JobProperties;
 import com.dangdang.ddframe.job.lite.config.LiteJobConfiguration;
@@ -40,7 +37,6 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.support.ManagedList;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Configuration;
@@ -56,13 +52,11 @@ import java.util.Map;
  * @date: 2018/7/28 15:44
  * @since: 1.0.0
  */
-@Component
 @Configuration
+@Component
 @Data
 @Slf4j
-@EnableConfigurationProperties
 public class JobConfigParser implements ApplicationContextAware {
-
 
     @Resource
     private ZookeeperRegistryCenter zookeeperRegistryCenter;

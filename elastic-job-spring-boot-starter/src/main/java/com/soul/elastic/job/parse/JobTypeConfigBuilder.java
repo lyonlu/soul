@@ -22,6 +22,9 @@ import com.dangdang.ddframe.job.config.JobTypeConfiguration;
 import com.dangdang.ddframe.job.config.dataflow.DataflowJobConfiguration;
 import com.dangdang.ddframe.job.config.script.ScriptJobConfiguration;
 import com.dangdang.ddframe.job.config.simple.SimpleJobConfiguration;
+import com.soul.elastic.job.domain.DataFlowJob;
+import com.soul.elastic.job.domain.Job;
+import com.soul.elastic.job.domain.ScriptJob;
 import com.soul.elastic.job.enums.JobTypeEnum;
 
 /**
@@ -34,6 +37,30 @@ public class JobTypeConfigBuilder {
     /**
      * 根据作业类型 获取作业配置信息
      *
+     * @param jobTypeName 作业类型
+     * @param coreConfig  核心配置
+     * @param jobClass    job 执行器
+     * @param job         作业信息
+     * @return
+     */
+    public static JobTypeConfiguration getJobTypeConfiguration(String jobTypeName, JobCoreConfiguration coreConfig, String jobClass, Job job) {
+
+        JobTypeConfiguration jobTypeConfig = null;
+        if (jobTypeName.equals(JobTypeEnum.simple.getName())) {
+            jobTypeConfig = new SimpleJobConfiguration(coreConfig, jobClass);
+        }
+        if (jobTypeName.equals(JobTypeEnum.dataFlow.getName())) {
+            jobTypeConfig = new DataflowJobConfiguration(coreConfig, jobClass, ((DataFlowJob) job).isStreamingProcess());
+        }
+        if (jobTypeName.equals(JobTypeEnum.script.getName())) {
+            jobTypeConfig = new ScriptJobConfiguration(coreConfig, ((ScriptJob) job).getScriptCommandLine());
+        }
+        return jobTypeConfig;
+    }
+
+    /**
+     * 根据作业类型 获取作业配置信息
+     *
      * @param jobTypeName       作业类型
      * @param coreConfig        核心配置
      * @param jobClass          job 执行器
@@ -41,7 +68,7 @@ public class JobTypeConfigBuilder {
      * @param scriptCommandLine
      * @return
      */
-    public static JobTypeConfiguration getJobTypeConfiguration(String jobTypeName, JobCoreConfiguration coreConfig, String jobClass, boolean streamingProcess, String scriptCommandLine) {
+    public static JobTypeConfiguration getJobTypeConfiguration(String jobTypeName, JobCoreConfiguration coreConfig, String jobClass, Boolean streamingProcess, String scriptCommandLine) {
 
         JobTypeConfiguration jobTypeConfig = null;
         if (jobTypeName.equals(JobTypeEnum.simple.getName())) {
